@@ -256,7 +256,7 @@ func (s *memStat) Sys() interface{} { return nil }
 // NewInfo returns a formatted info file for the given version, time pair.
 // The version should be a canonical semantic version.
 func NewInfo(version string, t time.Time) File {
-	var info = struct {
+	info := struct {
 		Version string
 		Time    time.Time
 	}{version, t}

@@ -44,7 +44,7 @@ func TestConcurrentReadsAndWrites(t *testing.T) {
 	}
 	const parallel = 32
 
-	var sem = make(chan bool, parallel)
+	sem := make(chan bool, parallel)
 
 	var (
 		writeSuccesses, readSuccesses int64 // atomic

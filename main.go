@@ -39,12 +39,14 @@ import (
 	"golang.org/x/mod/module"
 )
 
-var downloadRoot string
-var listen, promListen string
-var cacheDir string
-var proxyHost string
-var excludeHost string
-var cacheExpire time.Duration
+var (
+	downloadRoot       string
+	listen, promListen string
+	cacheDir           string
+	proxyHost          string
+	excludeHost        string
+	cacheExpire        time.Duration
+)
 
 func init() {
 	flag.StringVar(&excludeHost, "exclude", "", "exclude host pattern, you can exclude internal Git services")
@@ -167,7 +169,6 @@ func (r *responseLogger) WriteHeader(code int) {
 
 // ServeHTTP implements http handler.
 func (l *logger) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-
 	// Prometheus metrics
 	if r.URL.Path == "/metrics" {
 		promhttp.Handler().ServeHTTP(w, r)

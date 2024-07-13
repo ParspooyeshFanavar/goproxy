@@ -7,14 +7,12 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 )
 
-var (
-	totalRequest = prometheus.NewCounterVec(prometheus.CounterOpts{
-		Namespace: "goproxy",
-		Subsystem: "router",
-		Name:      "request_total",
-		Help:      "total request in HTTP",
-	}, []string{"mode", "status"})
-)
+var totalRequest = prometheus.NewCounterVec(prometheus.CounterOpts{
+	Namespace: "goproxy",
+	Subsystem: "router",
+	Name:      "request_total",
+	Help:      "total request in HTTP",
+}, []string{"mode", "status"})
 
 func init() {
 	prometheus.MustRegister(totalRequest)

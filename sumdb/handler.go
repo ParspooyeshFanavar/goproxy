@@ -22,9 +22,7 @@ var supportedSumDB = map[string][]string{
 	"gosum.io":             {"https://gosum.io/"},
 }
 
-var (
-	errSumPathInvalid = errors.New("sumdb request path invalid")
-)
+var errSumPathInvalid = errors.New("sumdb request path invalid")
 
 // Handler handles sumdb request
 // goproxy.io not impl a complete sumdb, just proxy to upstream.
@@ -102,5 +100,4 @@ func proxySumdb(ctx context.Context, host, path string, respChan chan<- *http.Re
 		resp.Body.Close()
 	case respChan <- resp:
 	}
-
 }
