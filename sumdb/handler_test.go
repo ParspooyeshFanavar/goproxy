@@ -76,7 +76,7 @@ func testProxy(t *testing.T) {
 		{
 			name:       "lookup",
 			db:         "sum.golang.google.cn",
-			path:       "lookup/github.com/goproxyio/goproxy@v1.0.0", // this is a fake testcase
+			path:       "lookup/github.com/ParspooyeshFanavar/goproxy@v1.0.0", // this is a fake testcase
 			expectSucc: true,
 		},
 	}

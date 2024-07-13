@@ -16,8 +16,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/goproxyio/goproxy/v2/renameio"
-	"github.com/goproxyio/goproxy/v2/sumdb"
+	"github.com/ParspooyeshFanavar/goproxy/v2/renameio"
+	"github.com/ParspooyeshFanavar/goproxy/v2/sumdb"
 
 	"github.com/prometheus/client_golang/prometheus"
 )
