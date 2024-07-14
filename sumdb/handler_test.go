@@ -70,14 +70,14 @@ func testProxy(t *testing.T) {
 		name       string
 		db         string
 		path       string
-		expectSucc bool
+		statusCode int
 	}
 	tests := []TestCase{
 		{
 			name:       "lookup",
 			db:         "sum.golang.google.cn",
-			path:       "lookup/github.com/ParspooyeshFanavar/goproxy@v1.0.0", // this is a fake testcase
-			expectSucc: true,
+			path:       "lookup/github.com/goproxyio/goproxy@v1.0.0", // this is a fake testcase
+			statusCode: http.StatusOK,
 		},
 	}
 
@@ -88,7 +88,7 @@ func testProxy(t *testing.T) {
 			Handler(recoder, req)
 
 			resp := recoder.Result()
-			if succ := (resp.StatusCode == http.StatusOK); succ != testcase.expectSucc {
+			if resp.StatusCode != testcase.statusCode {
 				t.Errorf("FETCH from db %s/%s got unexpect http status %d", testcase.db, testcase.path, resp.StatusCode)
 				return
 			}
