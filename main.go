@@ -34,8 +34,7 @@ import (
 
 	"github.com/ParspooyeshFanavar/goproxy/v2/proxy"
 
-	"github.com/prometheus/client_golang/prometheus/promhttp"
-	"golang.org/x/mod/module"
+	"github.com/ParspooyeshFanavar/goproxy/v2/mod/module"
 )
 
 var (

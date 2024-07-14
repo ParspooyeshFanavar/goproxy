@@ -18,7 +18,7 @@ import (
 
 	"github.com/ParspooyeshFanavar/goproxy/v2/sumdb"
 
-	"golang.org/x/mod/module"
+	"github.com/ParspooyeshFanavar/goproxy/v2/mod/module"
 )
 
 // A ServerOps provides the external operations
