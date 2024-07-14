@@ -18,8 +18,6 @@ import (
 
 	"github.com/ParspooyeshFanavar/goproxy/v2/renameio"
 	"github.com/ParspooyeshFanavar/goproxy/v2/sumdb"
-
-	"github.com/prometheus/client_golang/prometheus"
 )
 
 // ListExpire list data expire data duration.
@@ -174,18 +172,16 @@ func (rt *Router) Direct(path string) bool {
 
 // ServveHTTP implements http handler.
 func (rt *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	mw := NewMetricsResponseWriter(w)
+	mw := w
 	// sumdb handler
 	if strings.HasPrefix(r.URL.Path, "/sumdb/") {
 		sumdb.Handler(mw, r)
-		totalRequest.With(prometheus.Labels{"mode": "sumdb", "status": mw.status()}).Inc()
 		return
 	}
 
 	if rt.proxy == nil || rt.Direct(strings.TrimPrefix(r.URL.Path, "/")) {
 		log.Printf("------ --- %s [direct]\n", r.URL)
 		rt.srv.ServeHTTP(mw, r)
-		totalRequest.With(prometheus.Labels{"mode": "direct", "status": mw.status()}).Inc()
 		return
 	}
 
@@ -198,13 +194,11 @@ func (rt *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 				if time.Since(info.ModTime()) >= ListExpire {
 					log.Printf("------ --- %s [proxy]\n", r.URL)
 					rt.proxy.ServeHTTP(mw, r)
-					totalRequest.With(prometheus.Labels{"mode": "proxy", "status": mw.status()}).Inc()
 				} else {
 					ctype = "text/plain; charset=UTF-8"
 					mw.Header().Set("Content-Type", ctype)
 					log.Printf("------ --- %s [cached]\n", r.URL)
 					http.ServeContent(mw, r, "", info.ModTime(), f)
-					totalRequest.With(prometheus.Labels{"mode": "cached", "status": mw.status()}).Inc()
 				}
 				return
 			}
@@ -212,7 +206,6 @@ func (rt *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			i := strings.Index(r.URL.Path, "/@v/")
 			if i < 0 {
 				http.Error(mw, "no such path", http.StatusNotFound)
-				totalRequest.With(prometheus.Labels{"mode": "proxy", "status": mw.status()}).Inc()
 				return
 			}
 
@@ -221,7 +214,6 @@ func (rt *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 				if time.Since(info.ModTime()) >= rt.cacheExpire {
 					log.Printf("------ --- %s [proxy]\n", r.URL)
 					rt.proxy.ServeHTTP(mw, r)
-					totalRequest.With(prometheus.Labels{"mode": "proxy", "status": mw.status()}).Inc()
 					return
 				}
 				ctype = "text/plain; charset=UTF-8"
@@ -236,20 +228,17 @@ func (rt *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 					ctype = "application/octet-stream"
 				default:
 					http.Error(mw, "request not recognized", http.StatusNotFound)
-					totalRequest.With(prometheus.Labels{"mode": "proxy", "status": mw.status()}).Inc()
 					return
 				}
 			}
 			mw.Header().Set("Content-Type", ctype)
 			log.Printf("------ --- %s [cached]\n", r.URL)
 			http.ServeContent(mw, r, "", info.ModTime(), f)
-			totalRequest.With(prometheus.Labels{"mode": "cached", "status": mw.status()}).Inc()
 			return
 		}
 	}
 	log.Printf("------ --- %s [proxy]\n", r.URL)
 	rt.proxy.ServeHTTP(mw, r)
-	totalRequest.With(prometheus.Labels{"mode": "proxy", "status": mw.status()}).Inc()
 	return
 }
 

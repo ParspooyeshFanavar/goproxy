@@ -35,7 +35,6 @@ import (
 	"github.com/ParspooyeshFanavar/goproxy/v2/proxy"
 
 	"github.com/ParspooyeshFanavar/goproxy/v2/mod/module"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 var (
@@ -168,12 +167,6 @@ func (r *responseLogger) WriteHeader(code int) {
 
 // ServeHTTP implements http handler.
 func (l *logger) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	// Prometheus metrics
-	if r.URL.Path == "/metrics" {
-		promhttp.Handler().ServeHTTP(w, r)
-		return
-	}
-
 	start := time.Now()
 	rl := &responseLogger{code: 200, ResponseWriter: w}
 	l.h.ServeHTTP(rl, r)
