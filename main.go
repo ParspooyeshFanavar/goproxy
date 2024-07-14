@@ -35,15 +35,16 @@ import (
 	"github.com/ParspooyeshFanavar/goproxy/v2/proxy"
 
 	"github.com/ParspooyeshFanavar/goproxy/v2/mod/module"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 var (
-	downloadRoot       string
-	listen, promListen string
-	cacheDir           string
-	proxyHost          string
-	excludeHost        string
-	cacheExpire        time.Duration
+	downloadRoot string
+	listen       string
+	cacheDir     string
+	proxyHost    string
+	excludeHost  string
+	cacheExpire  time.Duration
 )
 
 func init() {
