@@ -1,6 +1,6 @@
 [Unit]
 Description=goproxy service
-Documentation=https://goproxy.io
+Documentation=https://goproxy.parspooyesh.com
 After=network-online.target
 
 [Service]

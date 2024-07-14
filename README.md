@@ -4,7 +4,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/ParspooyeshFanavar/goproxy)](https://goreportcard.com/report/github.com/ParspooyeshFanavar/goproxy)
 [![GoDoc](https://godoc.org/github.com/ParspooyeshFanavar/goproxy?status.svg)](https://godoc.org/github.com/ParspooyeshFanavar/goproxy)
 
-A global proxy for go modules. see: [https://goproxy.io](https://goproxy.io)
+A global proxy for go modules. see: [https://goproxy.parspooyesh.com](https://goproxy.parspooyesh.com)
 
 ## Requirements
 
@@ -35,7 +35,7 @@ See [`test/get_test.sh`](./test/get_test.sh).
 ### Router mode    
 
 ```shell
-./bin/goproxy -listen=0.0.0.0:80 -proxy https://goproxy.io
+./bin/goproxy -listen=0.0.0.0:80 -proxy https://goproxy.parspooyesh.com
 ```
 
 Use the `-proxy` flag combined with the `-exclude` flag to enable `Router mode`, which implements route filter to routing private modules or public modules.
@@ -47,7 +47,7 @@ Use the `-proxy` flag combined with the `-exclude` flag to enable `Router mode`,
                  match|pattern
                       |
                   +---+---+           +----------+
-go get  +-------> |goproxy| +-------> |goproxy.io| +---> golang.org/x/net
+go get  +-------> |goproxy| +-------> |goproxy.parspooyesh.com| +---> golang.org/x/net
                   +-------+           +----------+
                  router mode           proxy mode
 ```
@@ -58,7 +58,7 @@ matches the module path.
 NOTE: Patterns are matched to the full path specified, not only to the host component.
 
 ```shell
-./bin/goproxy -listen=0.0.0.0:80 -cacheDir=/tmp/test -proxy https://goproxy.io -exclude "*.corp.example.com,rsc.io/private"
+./bin/goproxy -listen=0.0.0.0:80 -cacheDir=/tmp/test -proxy https://goproxy.parspooyesh.com -exclude "*.corp.example.com,rsc.io/private"
 ```
 
 ### Private module authentication
@@ -110,7 +110,7 @@ spec:
       containers:
       - args:
         - -proxy
-        - https://goproxy.io
+        - https://goproxy.parspooyesh.com
         - -listen
         - 0.0.0.0:8081
         - -cacheDir
@@ -150,7 +150,7 @@ spec:
       containers:
       - args:
         - -proxy
-        - https://goproxy.io
+        - https://goproxy.parspooyesh.com
         - -listen
         - 0.0.0.0:8081
         - -cacheDir

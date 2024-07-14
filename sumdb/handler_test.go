@@ -53,7 +53,7 @@ func testSupported(t *testing.T) {
 	for _, testcase := range tests {
 		t.Run(testcase.name, func(t *testing.T) {
 			recoder := httptest.NewRecorder()
-			req := httptest.NewRequest(http.MethodGet, fmt.Sprintf("https://goproxy.io/sumdb/%s/supported", testcase.db), nil)
+			req := httptest.NewRequest(http.MethodGet, fmt.Sprintf("https://goproxy.parspooyesh.com/sumdb/%s/supported", testcase.db), nil)
 			Handler(recoder, req)
 
 			resp := recoder.Result()
@@ -84,7 +84,7 @@ func testProxy(t *testing.T) {
 	for _, testcase := range tests {
 		t.Run(testcase.name, func(t *testing.T) {
 			recoder := httptest.NewRecorder()
-			req := httptest.NewRequest(http.MethodGet, fmt.Sprintf("https://goproxy.io/sumdb/%s/%s", testcase.db, testcase.path), nil)
+			req := httptest.NewRequest(http.MethodGet, fmt.Sprintf("https://goproxy.parspooyesh.com/sumdb/%s/%s", testcase.db, testcase.path), nil)
 			Handler(recoder, req)
 
 			resp := recoder.Result()

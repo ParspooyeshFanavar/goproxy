@@ -25,13 +25,13 @@ var supportedSumDB = map[string][]string{
 var errSumPathInvalid = errors.New("sumdb request path invalid")
 
 // Handler handles sumdb request
-// goproxy.io not impl a complete sumdb, just proxy to upstream.
+// goproxy.parspooyesh.com not impl a complete sumdb, just proxy to upstream.
 func Handler(w http.ResponseWriter, r *http.Request) {
 	whichDB, realPath, err := parsePath(r.URL.Path)
 	_, supported := supportedSumDB[whichDB]
 	if err != nil || !supported {
 		// if not check the target db,
-		// curl https://goproxy.io/sumdb/www.google.com will succ
+		// curl https://goproxy.parspooyesh.com/sumdb/www.google.com will succ
 		w.WriteHeader(http.StatusGone)
 		fmt.Fprint(w, "unsupported db")
 		return
